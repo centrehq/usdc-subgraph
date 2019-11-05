@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 description: USDC
 repository: https://github.com/centrehq/usdc-subgraph
 schema:
@@ -10,9 +10,10 @@ dataSources:
     source:
       address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
       abi: FiatTokenV1
+      startBlock: 6082465
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.2
+      apiVersion: 0.0.3
       language: wasm/assemblyscript
       entities:
         - User
@@ -25,10 +26,10 @@ dataSources:
         - name: FiatTokenV1
           file: ./abis/FiatTokenV1.json
       eventHandlers:
-        - event: Burn(address,uint256)
+        - event: Burn(indexed address,uint256)
           handler: handleBurn
-        - event: Mint(address,address,uint256)
+        - event: Mint(indexed address,indexed address,uint256)
           handler: handleMint
-        - event: Transfer(address,address,uint256)
+        - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
       file: ./src/mapping.ts
